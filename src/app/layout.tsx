@@ -1,14 +1,11 @@
-import type { Metadata } from "next";
-import { Navbar } from "@/components/layout/Navbar";
-import "./globals.css";
 import { Footer } from "@/components/layout/Footer";
+import { Navbar } from "@/components/layout/Navbar";
 import { ThemeProvider } from "@/theme/ThemeProvider";
+import type { Metadata } from "next";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Mohammed Zacki - Digital Marketing Enthusiast",
-  icons: {
-    icon: "icon.svg",
-  },
   description:
     "Digital Marketing professional specializing in SEO, Social Media Marketing, and Content Strategy. Based in Udaipur, Rajasthan.",
   keywords:
