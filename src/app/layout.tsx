@@ -1,31 +1,34 @@
-import type { Metadata } from 'next'
-import { ThemeProvider } from '@/theme/ThemeProvider'
-import { Navbar } from '@/components/layout/Navbar'
-import './globals.css'
-import { Footer } from '@/components/layout/Footer'
+import type { Metadata } from "next";
+import { Navbar } from "@/components/layout/Navbar";
+import "./globals.css";
+import { Footer } from "@/components/layout/Footer";
+import { ThemeProvider } from "@/theme/ThemeProvider";
 
 export const metadata: Metadata = {
-  title: 'Mohammed Zacki - Digital Marketing Enthusiast',
+  title: "Mohammed Zacki - Digital Marketing Enthusiast",
   icons: {
     icon: "icon.svg",
   },
-  description: 'Digital Marketing professional specializing in SEO, Social Media Marketing, and Content Strategy. Based in Udaipur, Rajasthan.',
-  keywords: 'digital marketing, SEO, social media marketing, content writing, lead generation, Udaipur',
-  authors: [{ name: 'Mohammed Zacki' }],
+  description:
+    "Digital Marketing professional specializing in SEO, Social Media Marketing, and Content Strategy. Based in Udaipur, Rajasthan.",
+  keywords:
+    "digital marketing, SEO, social media marketing, content writing, lead generation, Udaipur",
+  authors: [{ name: "Mohammed Zacki" }],
   openGraph: {
-    title: 'Mohammed Zacki - Digital Marketing Portfolio',
-    description: 'Helping brands grow with SEO, Social Media & Content Strategy',
-    url: 'https://zacki-portfolio.vercel.app',
-    siteName: 'Mohammed Zacki Portfolio',
-    locale: 'en_US',
-    type: 'website',
+    title: "Mohammed Zacki - Digital Marketing Portfolio",
+    description:
+      "Helping brands grow with SEO, Social Media & Content Strategy",
+    url: "https://zacki-portfolio.vercel.app",
+    siteName: "Mohammed Zacki Portfolio",
+    locale: "en_US",
+    type: "website",
   },
-}
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -37,5 +40,5 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }

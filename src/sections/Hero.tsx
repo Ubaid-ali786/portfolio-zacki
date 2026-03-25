@@ -15,26 +15,17 @@ import {
   useTheme,
 } from "@mui/material";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
-import Typewriter from "typewriter-effect";
+import dynamic from "next/dynamic";
+import { useEffect, useRef, useState } from "react";
 
-type Particle = {
-  x: number;
-  y: number;
-  scale: number;
-  duration: number;
-};
+// Dynamically import Typewriter with no SSR
+const Typewriter = dynamic(
+  () => import("typewriter-effect").then((mod) => mod.default),
+  { ssr: false },
+);
 
 export const Hero = () => {
   const theme = useTheme();
-  const [particles] = useState<Particle[]>(() =>
-    Array.from({ length: 50 }, () => ({
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
-      scale: Math.random() * 0.5 + 0.2,
-      duration: Math.random() * 10 + 10,
-    })),
-  );
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -48,6 +39,24 @@ export const Hero = () => {
     damping: 30,
     restDelta: 0.001,
   });
+
+  const [isClient, setIsClient] = useState(false);
+  const [particles, setParticles] = useState<
+    Array<{ x: number; y: number; scale: number }>
+  >([]);
+
+  useEffect(() => {
+    setIsClient(true);
+    // Generate particles only on client side
+    if (typeof window !== "undefined") {
+      const newParticles = Array.from({ length: 50 }, () => ({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        scale: Math.random() * 0.5 + 0.2,
+      }));
+      setParticles(newParticles);
+    }
+  }, []);
 
   const scrollToContact = () => {
     const contactSection = document.querySelector("#contact");
@@ -77,46 +86,48 @@ export const Hero = () => {
             : "radial-gradient(circle at 0% 0%, #0a0a2a 0%, #1a1a3a 100%)",
       }}
     >
-      {/* Animated Floating Particles */}
-      <Box
-        sx={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          overflow: "hidden",
-        }}
-      >
-        {particles.map((particle, i) => (
-          <motion.div
-            key={i}
-            initial={{
-              x: particle.x,
-              y: particle.y,
-              scale: particle.scale,
-            }}
-            animate={{
-              y: [null, -100, 100],
-              x: [null, 50, -50],
-            }}
-            transition={{
-              duration: particle.duration,
-              repeat: Infinity,
-              repeatType: "reverse",
-              ease: "linear",
-            }}
-            style={{
-              position: "absolute",
-              width: "4px",
-              height: "4px",
-              background: `linear-gradient(135deg, ${theme.palette.primary.main}80, ${theme.palette.secondary.main}80)`,
-              borderRadius: "50%",
-              opacity: 0.3,
-            }}
-          />
-        ))}
-      </Box>
+      {/* Animated Floating Particles - Only render on client */}
+      {isClient && (
+        <Box
+          sx={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            overflow: "hidden",
+          }}
+        >
+          {particles.map((particle, i) => (
+            <motion.div
+              key={i}
+              initial={{
+                x: particle.x,
+                y: particle.y,
+                scale: particle.scale,
+              }}
+              animate={{
+                y: [null, -100, 100],
+                x: [null, 50, -50],
+              }}
+              transition={{
+                duration: Math.random() * 10 + 10,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "linear",
+              }}
+              style={{
+                position: "absolute",
+                width: "4px",
+                height: "4px",
+                background: `linear-gradient(135deg, ${theme.palette.primary.main}80, ${theme.palette.secondary.main}80)`,
+                borderRadius: "50%",
+                opacity: 0.3,
+              }}
+            />
+          ))}
+        </Box>
+      )}
 
       {/* Animated Gradient Blobs */}
       <motion.div
@@ -199,35 +210,37 @@ export const Hero = () => {
                   </Typography>
                 </motion.div>
 
-                {/* Animated Title with Typewriter */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                >
-                  <Typography
-                    variant="h2"
-                    sx={{
-                      fontSize: { xs: "1.3rem", sm: "1.5rem", md: "1.8rem" },
-                      fontWeight: 600,
-                    }}
+                {/* Animated Title with Typewriter - Only render on client */}
+                {isClient && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
                   >
-                    <Typewriter
-                      options={{
-                        strings: [
-                          "Digital Marketing Enthusiast 🚀",
-                          "SEO Specialist 📈",
-                          "Social Media Expert 💫",
-                          "Content Strategist ✍️",
-                        ],
-                        autoStart: true,
-                        loop: true,
-                        delay: 50,
-                        deleteSpeed: 30,
+                    <Typography
+                      variant="h2"
+                      sx={{
+                        fontSize: { xs: "1.3rem", sm: "1.5rem", md: "1.8rem" },
+                        fontWeight: 600,
                       }}
-                    />
-                  </Typography>
-                </motion.div>
+                    >
+                      <Typewriter
+                        options={{
+                          strings: [
+                            "Digital Marketing Enthusiast 🚀",
+                            "SEO Specialist 📈",
+                            "Social Media Expert 💫",
+                            "Content Strategist ✍️",
+                          ],
+                          autoStart: true,
+                          loop: true,
+                          delay: 50,
+                          deleteSpeed: 30,
+                        }}
+                      />
+                    </Typography>
+                  </motion.div>
+                )}
 
                 {/* Location */}
                 <motion.div
@@ -454,49 +467,53 @@ export const Hero = () => {
                 </Box>
 
                 {/* Floating Badges */}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.8 }}
-                  style={{
-                    position: "absolute",
-                    top: "20%",
-                    left: "-30px",
-                    zIndex: 10,
-                  }}
-                >
-                  <Chip
-                    label="✨ SEO Expert"
-                    sx={{
-                      background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
-                      color: "white",
-                      fontWeight: 600,
-                      px: 1,
-                    }}
-                  />
-                </motion.div>
+                {isClient && (
+                  <>
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.8 }}
+                      style={{
+                        position: "absolute",
+                        top: "20%",
+                        left: "-30px",
+                        zIndex: 10,
+                      }}
+                    >
+                      <Chip
+                        label="✨ SEO Expert"
+                        sx={{
+                          background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
+                          color: "white",
+                          fontWeight: 600,
+                          px: 1,
+                        }}
+                      />
+                    </motion.div>
 
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 1 }}
-                  style={{
-                    position: "absolute",
-                    bottom: "20%",
-                    right: "-30px",
-                    zIndex: 10,
-                  }}
-                >
-                  <Chip
-                    label="🚀 Growth Hacker"
-                    sx={{
-                      background: `linear-gradient(135deg, ${theme.palette.secondary.main} 0%, ${theme.palette.primary.main} 100%)`,
-                      color: "white",
-                      fontWeight: 600,
-                      px: 1,
-                    }}
-                  />
-                </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 1 }}
+                      style={{
+                        position: "absolute",
+                        bottom: "20%",
+                        right: "-30px",
+                        zIndex: 10,
+                      }}
+                    >
+                      <Chip
+                        label="🚀 Growth Hacker"
+                        sx={{
+                          background: `linear-gradient(135deg, ${theme.palette.secondary.main} 0%, ${theme.palette.primary.main} 100%)`,
+                          color: "white",
+                          fontWeight: 600,
+                          px: 1,
+                        }}
+                      />
+                    </motion.div>
+                  </>
+                )}
               </Box>
             </motion.div>
 
@@ -558,34 +575,36 @@ export const Hero = () => {
         </Grid>
 
         {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          style={{
-            position: "absolute",
-            bottom: 30,
-            left: "50%",
-            transform: "translateX(-50%)",
-            cursor: "pointer",
-          }}
-          onClick={() => {
-            const aboutSection = document.querySelector("#about");
-            if (aboutSection) {
-              aboutSection.scrollIntoView({ behavior: "smooth" });
-            }
-          }}
-        >
+        {isClient && (
           <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.5 }}
+            style={{
+              position: "absolute",
+              bottom: 30,
+              left: "50%",
+              transform: "translateX(-50%)",
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              const aboutSection = document.querySelector("#about");
+              if (aboutSection) {
+                aboutSection.scrollIntoView({ behavior: "smooth" });
+              }
+            }}
           >
-            <Typography variant="caption" color="text.secondary">
-              Scroll Down
-            </Typography>
-            <Box sx={{ fontSize: "1.5rem", textAlign: "center" }}>↓</Box>
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >
+              <Typography variant="caption" color="text.secondary">
+                Scroll Down
+              </Typography>
+              <Box sx={{ fontSize: "1.5rem", textAlign: "center" }}>↓</Box>
+            </motion.div>
           </motion.div>
-        </motion.div>
+        )}
       </Container>
     </Box>
   );
