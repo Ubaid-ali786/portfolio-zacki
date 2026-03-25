@@ -1,21 +1,21 @@
-import { createTheme, ThemeOptions } from "@mui/material/styles";
+import { ThemeOptions } from "@mui/material/styles";
 
-export const lightTheme: ThemeOptions = {
+export const darkTheme: ThemeOptions = {
   palette: {
-    mode: "light",
+    mode: "dark",
     primary: {
-      main: "#667eea",
-      light: "#764ba2",
-      dark: "#5a67d8",
+      main: "#8b9dff",
+      light: "#a0b0ff",
+      dark: "#5a6fd8",
     },
     secondary: {
-      main: "#f093fb",
-      light: "#f6d5f7",
+      main: "#f6a8ff",
+      light: "#ffb8ff",
       dark: "#e07ef0",
     },
     background: {
-      default: "#f7fafc",
-      paper: "#ffffff",
+      default: "#0a0a2a",
+      paper: "#1a1a3a",
     },
   },
   typography: {
@@ -64,28 +64,3 @@ export const lightTheme: ThemeOptions = {
     },
   },
 };
-
-export const darkTheme: ThemeOptions = {
-  palette: {
-    mode: "dark",
-    primary: {
-      main: "#8b9dff",
-      light: "#a0b0ff",
-      dark: "#5a6fd8",
-    },
-    secondary: {
-      main: "#f6a8ff",
-      light: "#ffb8ff",
-      dark: "#e07ef0",
-    },
-    background: {
-      default: "#0a0a2a",
-      paper: "#1a1a3a",
-    },
-  },
-  typography: lightTheme.typography,
-  components: lightTheme.components,
-};
-
-export const getTheme = (mode: "light" | "dark") =>
-  createTheme(mode === "light" ? lightTheme : darkTheme);

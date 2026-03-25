@@ -1,8 +1,5 @@
-"use client";
+'use client';
 
-import { useTheme } from "@/theme/ThemeProvider";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
@@ -21,7 +18,6 @@ import {
   alpha,
 } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const navItems = [
@@ -39,16 +35,15 @@ export const Navbar = () => {
   const [activeSection, setActiveSection] = useState("#");
   const muiTheme = useMuiTheme();
   const isMobile = useMediaQuery(muiTheme.breakpoints.down("md"));
-  const { mode, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
-
+      
       // Detect active section for highlighting
-      const sections = navItems.map((item) => item.href);
+      const sections = navItems.map(item => item.href);
       const scrollPosition = window.scrollY + 100;
-
+      
       for (const section of sections) {
         if (section === "#") {
           if (scrollPosition < 100) {
@@ -56,21 +51,18 @@ export const Navbar = () => {
           }
           continue;
         }
-
+        
         const element = document.querySelector(section);
         if (element) {
           const { offsetTop, offsetHeight } = element as HTMLElement;
-          if (
-            scrollPosition >= offsetTop &&
-            scrollPosition < offsetTop + offsetHeight
-          ) {
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
             setActiveSection(section);
             break;
           }
         }
       }
     };
-
+    
     window.addEventListener("scroll", handleScroll);
     handleScroll(); // Initial check
     return () => window.removeEventListener("scroll", handleScroll);
@@ -112,7 +104,7 @@ export const Navbar = () => {
               justifyContent: "center",
               borderRadius: 2,
               mb: 1,
-              backgroundColor: isActive(item.href)
+              backgroundColor: isActive(item.href) 
                 ? alpha(muiTheme.palette.primary.main, 0.1)
                 : "transparent",
               "&:hover": {
@@ -120,13 +112,13 @@ export const Navbar = () => {
               },
             }}
           >
-            <ListItemText
+            <ListItemText 
               primary={item.label}
               primaryTypographyProps={{
                 sx: {
                   fontWeight: isActive(item.href) ? 600 : 400,
                   color: isActive(item.href) ? "primary.main" : "text.primary",
-                },
+                }
               }}
             />
           </ListItem>
@@ -142,21 +134,17 @@ export const Navbar = () => {
         elevation={scrolled ? 1 : 0}
         sx={{
           backgroundColor: scrolled
-            ? mode === "light"
-              ? alpha("#ffffff", 0.85)
-              : alpha("#0a0a2a", 0.85)
+            ? alpha("#0a0a2a", 0.85)
             : "transparent",
           backdropFilter: scrolled ? "blur(12px)" : "none",
-          borderBottom: scrolled
+          borderBottom: scrolled 
             ? `1px solid ${alpha(muiTheme.palette.divider, 0.1)}`
             : "none",
           transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
         }}
       >
         <Container maxWidth="lg">
-          <Toolbar
-            sx={{ justifyContent: "space-between", py: 1, minHeight: "70px" }}
-          >
+          <Toolbar sx={{ justifyContent: "space-between", py: 1, minHeight: "70px" }}>
             {/* Logo */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -171,38 +159,33 @@ export const Navbar = () => {
                   scrollToSection("#");
                 }}
                 sx={{
+                  fontSize: "2rem",
+                  fontWeight: "bold",
+                  background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
                   cursor: "pointer",
                   position: "relative",
                   display: "inline-block",
-
                   "&::before": {
                     content: '""',
                     position: "absolute",
                     top: "50%",
                     left: "50%",
-                    width: "120%",
-                    height: "120%",
-                    background:
-                      "radial-gradient(circle, rgba(102,126,234,0.2) 0%, rgba(118,75,162,0) 70%)",
+                    width: "100%",
+                    height: "100%",
+                    background: "radial-gradient(circle, rgba(102,126,234,0.2) 0%, rgba(118,75,162,0) 70%)",
                     transform: "translate(-50%, -50%) scale(0)",
                     transition: "transform 0.3s ease",
                     borderRadius: "50%",
-                    zIndex: 0,
+                    zIndex: -1,
                   },
-
                   "&:hover::before": {
                     transform: "translate(-50%, -50%) scale(1.5)",
                   },
                 }}
               >
-                <Image
-                  src="/logo.svg"
-                  alt="Mohammad Zacki Logo"
-                  width={120}
-                  height={50}
-                  style={{ position: "relative", zIndex: 1 }}
-                  priority
-                />
+                MZ
               </Box>
             </motion.div>
 
@@ -214,19 +197,13 @@ export const Navbar = () => {
                     key={item.label}
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                      delay: index * 0.1,
-                      type: "spring",
-                      stiffness: 100,
-                    }}
+                    transition={{ delay: index * 0.1, type: "spring", stiffness: 100 }}
                   >
                     <Button
                       onClick={() => scrollToSection(item.href)}
                       sx={{
                         position: "relative",
-                        color: isActive(item.href)
-                          ? "primary.main"
-                          : "text.primary",
+                        color: isActive(item.href) ? "primary.main" : "text.primary",
                         fontWeight: isActive(item.href) ? 600 : 400,
                         px: 2,
                         py: 1,
@@ -239,17 +216,13 @@ export const Navbar = () => {
                           left: "50%",
                           width: isActive(item.href) ? "70%" : 0,
                           height: "3px",
-                          background:
-                            "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                          background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
                           transition: "all 0.3s ease",
                           transform: "translateX(-50%)",
                           borderRadius: "3px",
                         },
                         "&:hover": {
-                          backgroundColor: alpha(
-                            muiTheme.palette.primary.main,
-                            0.08,
-                          ),
+                          backgroundColor: alpha(muiTheme.palette.primary.main, 0.08),
                           transform: "translateY(-2px)",
                         },
                         "&:hover::after": {
@@ -261,37 +234,6 @@ export const Navbar = () => {
                     </Button>
                   </motion.div>
                 ))}
-
-                {/* Theme Toggle Button */}
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <IconButton
-                    onClick={toggleTheme}
-                    sx={{
-                      ml: 1,
-                      transition: "all 0.3s ease",
-                      backgroundColor: alpha(
-                        muiTheme.palette.primary.main,
-                        0.1,
-                      ),
-                      "&:hover": {
-                        backgroundColor: alpha(
-                          muiTheme.palette.primary.main,
-                          0.2,
-                        ),
-                        transform: "rotate(15deg)",
-                      },
-                    }}
-                  >
-                    {mode === "light" ? (
-                      <Brightness4Icon sx={{ color: "primary.main" }} />
-                    ) : (
-                      <Brightness7Icon sx={{ color: "warning.main" }} />
-                    )}
-                  </IconButton>
-                </motion.div>
               </Box>
             )}
 
@@ -303,46 +245,12 @@ export const Navbar = () => {
                   whileTap={{ scale: 0.95 }}
                 >
                   <IconButton
-                    onClick={toggleTheme}
-                    sx={{
-                      transition: "all 0.3s ease",
-                      backgroundColor: alpha(
-                        muiTheme.palette.primary.main,
-                        0.1,
-                      ),
-                      "&:hover": {
-                        backgroundColor: alpha(
-                          muiTheme.palette.primary.main,
-                          0.2,
-                        ),
-                      },
-                    }}
-                  >
-                    {mode === "light" ? (
-                      <Brightness4Icon sx={{ color: "primary.main" }} />
-                    ) : (
-                      <Brightness7Icon sx={{ color: "warning.main" }} />
-                    )}
-                  </IconButton>
-                </motion.div>
-
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <IconButton
                     onClick={handleDrawerToggle}
                     sx={{
                       transition: "all 0.3s ease",
-                      backgroundColor: alpha(
-                        muiTheme.palette.primary.main,
-                        0.1,
-                      ),
+                      backgroundColor: alpha(muiTheme.palette.primary.main, 0.1),
                       "&:hover": {
-                        backgroundColor: alpha(
-                          muiTheme.palette.primary.main,
-                          0.2,
-                        ),
+                        backgroundColor: alpha(muiTheme.palette.primary.main, 0.2),
                       },
                     }}
                   >
@@ -365,11 +273,8 @@ export const Navbar = () => {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: 280,
-              backgroundColor: mode === "light" ? "#ffffff" : "#1a1a3a",
-              backgroundImage:
-                mode === "light"
-                  ? "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)"
-                  : "linear-gradient(135deg, #1a1a3a 0%, #0f0f2a 100%)",
+              backgroundColor: "#1a1a3a",
+              backgroundImage: "linear-gradient(135deg, #1a1a3a 0%, #0f0f2a 100%)",
               borderLeft: `1px solid ${alpha(muiTheme.palette.divider, 0.1)}`,
             },
           }}

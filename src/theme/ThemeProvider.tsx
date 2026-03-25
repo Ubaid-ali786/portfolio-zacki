@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
-import React, { createContext, useContext, useState } from "react";
-import { getTheme } from "./theme";
+import React, { createContext, useContext } from "react";
+import { darkTheme } from "./theme";
+import { createTheme } from "@mui/material/styles";
 
 type ThemeContextType = {
-  mode: "light" | "dark";
-  toggleTheme: () => void;
+  mode: "dark";
 };
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -21,27 +21,11 @@ export const useTheme = () => {
 };
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  // ✅ SSR safe + no useEffect + no warning
-  const [mode, setMode] = useState<"light" | "dark">(() => {
-    if (typeof window !== "undefined") {
-      return (localStorage.getItem("theme") as "light" | "dark") || "light";
-    }
-    return "light";
-  });
-
-  const toggleTheme = () => {
-    const newMode = mode === "light" ? "dark" : "light";
-    setMode(newMode);
-
-    if (typeof window !== "undefined") {
-      localStorage.setItem("theme", newMode);
-    }
-  };
-
-  const theme = getTheme(mode);
+  const theme = createTheme(darkTheme);
+  const mode = "dark";
 
   return (
-    <ThemeContext.Provider value={{ mode, toggleTheme }}>
+    <ThemeContext.Provider value={{ mode }}>
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
         {children}
