@@ -21,15 +21,21 @@ export const useTheme = () => {
 };
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
+  // ✅ SSR safe + no useEffect + no warning
   const [mode, setMode] = useState<"light" | "dark">(() => {
-    const savedMode = localStorage.getItem("theme") as "light" | "dark";
-    return savedMode || "light";
+    if (typeof window !== "undefined") {
+      return (localStorage.getItem("theme") as "light" | "dark") || "light";
+    }
+    return "light";
   });
 
   const toggleTheme = () => {
     const newMode = mode === "light" ? "dark" : "light";
     setMode(newMode);
-    localStorage.setItem("theme", newMode);
+
+    if (typeof window !== "undefined") {
+      localStorage.setItem("theme", newMode);
+    }
   };
 
   const theme = getTheme(mode);
