@@ -1,0 +1,73 @@
+<svg width="600" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <!-- Background Gradient -->
+        <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#020617" />
+            <stop offset="100%" stop-color="#0f172a" />
+        </linearGradient>
+
+        <!-- Accent Gradient -->
+        <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#22c55e" />
+            <stop offset="100%" stop-color="#3b82f6" />
+        </linearGradient>
+
+        <!-- Glow -->
+        <filter id="glow">
+            <feGaussianBlur stdDeviation="2.5" result="blur" />
+            <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+    </defs>
+
+    <!-- Background -->
+    <rect width="600" height="200" rx="30" fill="url(#bg)" />
+
+    <!-- Icon Circle -->
+    <circle cx="90" cy="100" r="60" fill="#020617" stroke="url(#accent)" stroke-width="2" />
+
+    <!-- Growth Graph -->
+    <polyline
+        points="50,120 75,95 95,110 120,80 140,65"
+        fill="none"
+        stroke="url(#accent)"
+        stroke-width="3.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        filter="url(#glow)"
+    />
+
+    <!-- Arrow -->
+    <polygon points="140,65 132,70 136,80" fill="#3b82f6" />
+
+    <!-- M Shape -->
+    <path d="M55 85 L70 60 L85 85 L100 60 L115 85"
+        fill="none"
+        stroke="#22c55e"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round" />
+
+    <!-- Text -->
+    <text x="180" y="95"
+        font-size="36"
+        font-family="Poppins, Arial"
+        fill="#e2e8f0"
+        font-weight="600">
+        Mohammad Zacki
+    </text>
+
+    <!-- Subtitle -->
+    <text x="180" y="130"
+        font-size="16"
+        font-family="Poppins, Arial"
+        fill="#94a3b8"
+        letter-spacing="2">
+        DIGITAL MARKETER
+    </text>
+
+    <!-- Accent Line -->
+    <rect x="180" y="140" width="200" height="3" fill="url(#accent)" rx="2" />
+</svg>

@@ -1,0 +1,59 @@
+<svg width="220" height="220" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <!-- Background -->
+        <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#020617" />
+            <stop offset="100%" stop-color="#0f172a" />
+        </linearGradient>
+
+        <!-- Accent Gradient -->
+        <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#22c55e" />
+            <stop offset="100%" stop-color="#06b6d4" />
+        </linearGradient>
+
+        <!-- Glow -->
+        <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="blur" />
+            <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+    </defs>
+
+    <!-- Background -->
+    <rect width="220" height="220" rx="32" fill="url(#bg)" />
+
+    <!-- Orbit Ring -->
+    <circle cx="110" cy="110" r="70"
+        stroke="url(#accent)"
+        stroke-width="1.5"
+        stroke-dasharray="4 6"
+        fill="none"
+        opacity="0.4" />
+
+    <!-- Growth Line -->
+    <polyline points="40,140 80,115 110,130 150,90 180,65"
+        fill="none"
+        stroke="url(#accent)"
+        stroke-width="3.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        filter="url(#glow)" />
+
+    <!-- Arrow -->
+    <polygon points="180,65 170,70 176,80" fill="#06b6d4" />
+
+    <!-- Rocket -->
+    <g transform="translate(95,70) rotate(-20)">
+        <rect x="0" y="0" width="18" height="40" rx="9" fill="#e2e8f0" />
+        <polygon points="9,-12 18,5 0,5" fill="#22c55e" />
+        <circle cx="9" cy="15" r="4" fill="#0ea5e9" />
+        <polygon points="0,40 6,32 6,45" fill="#f97316" />
+        <polygon points="18,40 12,32 12,45" fill="#f97316" />
+    </g>
+
+    <!-- Glow Dot (success point) -->
+    <circle cx="180" cy="65" r="4" fill="#22c55e" filter="url(#glow)" />
+</svg>

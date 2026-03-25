@@ -6,6 +6,9 @@ import { Footer } from '@/components/layout/Footer'
 
 export const metadata: Metadata = {
   title: 'Mohammed Zacki - Digital Marketing Enthusiast',
+  icons: {
+    icon: "icon.svg",
+  },
   description: 'Digital Marketing professional specializing in SEO, Social Media Marketing, and Content Strategy. Based in Udaipur, Rajasthan.',
   keywords: 'digital marketing, SEO, social media marketing, content writing, lead generation, Udaipur',
   authors: [{ name: 'Mohammed Zacki' }],
