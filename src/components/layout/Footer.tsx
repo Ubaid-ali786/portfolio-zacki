@@ -1,8 +1,9 @@
 "use client";
 
-import GitHubIcon from "@mui/icons-material/GitHub";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import TwitterIcon from "@mui/icons-material/Twitter";
+import XIcon from "@mui/icons-material/X";
 import { Box, Container, IconButton, Stack, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 
@@ -34,34 +35,45 @@ export const Footer = () => {
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
               <IconButton
                 component="a"
-                href="https://github.com"
+                href="https://www.instagram.com/mohmmed_zacki/"
                 target="_blank"
                 color="inherit"
                 size="small"
               >
-                <GitHubIcon />
+                <InstagramIcon />
               </IconButton>
             </motion.div>
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
               <IconButton
                 component="a"
-                href="https://linkedin.com"
+                href="https://www.facebook.com/zacki.hussain?rdid=X3his7h7GLdYq3eR&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1LDRgutkTJ%2F#"
+                target="_blank"
+                color="inherit"
+                size="small"
+              >
+                <FacebookIcon />
+              </IconButton>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+              <IconButton
+                component="a"
+                href="https://x.com/Mohammed_Zacki"
+                target="_blank"
+                color="inherit"
+                size="small"
+              >
+                <XIcon />
+              </IconButton>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+              <IconButton
+                component="a"
+                href="https://www.linkedin.com/in/mohammed-zacki-25961a34b?utm_source=share_via&utm_content=profile&utm_medium=member_android"
                 target="_blank"
                 color="inherit"
                 size="small"
               >
                 <LinkedInIcon />
-              </IconButton>
-            </motion.div>
-            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
-              <IconButton
-                component="a"
-                href="https://twitter.com"
-                target="_blank"
-                color="inherit"
-                size="small"
-              >
-                <TwitterIcon />
               </IconButton>
             </motion.div>
           </Stack>

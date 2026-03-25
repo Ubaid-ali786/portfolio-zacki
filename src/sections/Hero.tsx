@@ -1,7 +1,11 @@
 "use client";
 
 import { GradientButton } from "@/components/ui/GradientButton";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import XIcon from "@mui/icons-material/X";
 import {
   alpha,
   Avatar,
@@ -10,6 +14,8 @@ import {
   Chip,
   Container,
   Grid,
+  Icon,
+  IconButton,
   Stack,
   Typography,
   useTheme,
@@ -197,7 +203,7 @@ export const Hero = () => {
                   <Typography
                     variant="h1"
                     sx={{
-                      fontSize: { xs: "2.8rem", sm: "3.5rem", md: "4.5rem" },
+                      fontSize: { xs: "2.8rem", sm: "3.5rem", md: "3.5rem" },
                       fontWeight: 800,
                       background:
                         "linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)",
@@ -532,15 +538,23 @@ export const Hero = () => {
                   {
                     name: "Instagram",
                     href: "https://www.instagram.com/mohmmed_zacki/",
-                    icon: "📸",
+                    icon: <InstagramIcon />,
+                  },
+                  {
+                    name: "Facebook",
+                    href: "https://www.facebook.com/zacki.hussain?rdid=X3his7h7GLdYq3eR&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1LDRgutkTJ%2F#",
+                    icon: <FacebookIcon />,
+                  },
+                  {
+                    name: "Twitter",
+                    href: "https://x.com/Mohammed_Zacki",
+                    icon: <XIcon />,
                   },
                   {
                     name: "LinkedIn",
-                    href: "https://linkedin.com",
-                    icon: "💼",
+                    href: "https://www.linkedin.com/in/mohammed-zacki-25961a34b?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+                    icon: <LinkedInIcon />,
                   },
-                  { name: "Twitter", href: "https://twitter.com", icon: "🐦" },
-                  { name: "GitHub", href: "https://github.com", icon: "💻" },
                 ].map((social, index) => (
                   <motion.a
                     key={index}
@@ -551,7 +565,7 @@ export const Hero = () => {
                     whileTap={{ scale: 0.9 }}
                     style={{ textDecoration: "none" }}
                   >
-                    <Avatar
+                    <IconButton
                       sx={{
                         bgcolor: alpha(theme.palette.primary.main, 0.1),
                         width: 48,
@@ -565,8 +579,8 @@ export const Hero = () => {
                         },
                       }}
                     >
-                      <Typography variant="h6">{social.icon}</Typography>
-                    </Avatar>
+                      <Icon>{social.icon}</Icon>
+                    </IconButton>
                   </motion.a>
                 ))}
               </Stack>
