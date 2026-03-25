@@ -1,5 +1,6 @@
 "use client";
 
+import { ThemeProvider } from "@/theme/ThemeProvider";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -15,7 +16,6 @@ export const Footer = () => {
       sx={{
         py: 4,
         mt: "auto",
-        backgroundColor: "background.paper",
         borderTop: "1px solid",
         borderColor: "divider",
       }}
@@ -27,7 +27,7 @@ export const Footer = () => {
           alignItems="center"
           spacing={2}
         >
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="white">
             © {currentYear} Mohammed Zacki. All rights reserved.
           </Typography>
 
