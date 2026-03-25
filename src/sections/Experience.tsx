@@ -27,7 +27,7 @@ const experiences = [
     title: "Lead Generation",
     description:
       "Implemented effective lead generation strategies resulting in 40% increase in qualified leads.",
-    tags: ["Lead Generation", "CRM", "Email Marketing"],
+    tags: ["Lead Generation", "CRM", "Instagram", "All other social media platforms"],
     icon: <LeadIcon />,
   },
   {
